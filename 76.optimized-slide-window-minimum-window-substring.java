@@ -11,12 +11,8 @@ import java.util.List;
 class Solution {
     public String minWindow(String s, String t) {
         int[] tCount = new int[256];
-        int required = 0; // unique characters in t. abbc -> 3
 
         for (int i = 0; i < t.length(); i++) {
-            if (tCount[t.charAt(i)] == 0) {
-                required++;
-            }
             tCount[t.charAt(i)]++;
         }
 
@@ -28,48 +24,38 @@ class Solution {
             }
         }
 
-        // index of the window
-        int lo = 0;
-        int hi = 0;
-
         // index of the minimum window / res windows
         int start = 0;
         int end = 0;
-        int min = -1; // min size of ans window
+        int min = Integer.MAX_VALUE; // min size of ans window
 
-        int[] window = new int[256];
-        int formed = 0; // unique characters in t which has been included in s
+        int formed = 0; // number of characters in t which has been included
 
-        while (hi < st.size()) {
+        for (int lo = 0, hi = 0; hi < st.size(); hi++) {
+
             char c = st.get(hi).getValue();
-            window[c]++;
 
-            if (window[c] == tCount[c]) {
+            if (tCount[c]-- > 0) {
                 formed++;
             }
 
-            while (lo <= hi && formed == required) {
-                if (min == -1 || st.get(hi).getKey() - st.get(lo).getKey() + 1 < min) {
-                    end = st.get(hi).getKey();
+            while (lo <= hi && formed == t.length()) {
+                c = st.get(lo).getValue();
+                if (st.get(hi).getKey() - st.get(lo).getKey() + 1 < min) {
+                    end = st.get(hi).getKey() + 1;
                     start = st.get(lo).getKey();
                     min = end - start + 1;
-
                 }
 
-                c = st.get(lo).getValue();
-                window[c]--;
-
-                if (window[c] < tCount[c]) {
+                if (tCount[c]++ == 0) {
                     formed--;
                 }
 
                 lo++;
             }
-
-            hi++;
         }
 
-        return min == -1 ? "" : s.substring(start, end + 1);
+        return s.substring(start, end);
     }
 }
 // @lc code=end
