@@ -16,7 +16,7 @@ class Solution {
         char[] sChars = s.toCharArray();
 
         // * length of common string found
-        // * set it to 0 if s[i] != s[j];
+        // * set dp[i][j] to 0 if s[i - 1] != s[j];
         int[][] dp = new int[2][len + 1];
         int currRow = 0;
         int maxLen = 0;
