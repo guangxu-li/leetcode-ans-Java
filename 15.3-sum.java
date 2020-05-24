@@ -24,7 +24,8 @@ class Solution {
     }
 
     public void twoSumII(int[] nums, int i, List<List<Integer>> res) {
-        int lo = i + 1, hi = nums.length - 1;
+        int lo = i + 1;
+        int hi = nums.length - 1;
 
         while (lo < hi) {
             int sum = nums[i] + nums[lo] + nums[hi];
