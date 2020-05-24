@@ -10,7 +10,7 @@ class Solution {
         int strLen = 2 * s.length() + 3;
         char[] sChars = new char[strLen];
 
-        // ! to ignore special case at the beginning and end of the array
+        // ! to ignore special cases at the beginning and end of the array
         // * "abc" -> @ # a # b # c # $
         // * "" -> @#$
         // * "a" -> @ # a # $
