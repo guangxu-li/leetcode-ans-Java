@@ -14,13 +14,12 @@ class Solution {
         }
 
         int j = 0;
-        for (int k = 0; k < nums.length;) {
-            if (count[j] == 0) {
+        for (int k = 0; k < nums.length; k++) {
+            while (count[j] == 0) {
                 j++;
-                continue;
             }
 
-            nums[k++] = j;
+            nums[k] = j;
             count[j]--;
         }
     }
