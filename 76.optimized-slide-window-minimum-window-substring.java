@@ -55,6 +55,9 @@ class Solution {
             }
         }
 
+        // ! default return ""
+        // * start to end + 1 will default return s.charAt[0] which may
+        // * lead to some problem
         return s.substring(start, end);
     }
 }
