@@ -31,10 +31,5 @@ class Solution {
 
         return true;
     }
-
-    public static void main(String[] args) {
-        String s = "baac";
-        System.out.println(longestPalindrome(s));
-    }
 }
 // @lc code=end
