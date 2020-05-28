@@ -1,3 +1,5 @@
+import java.util.Arrays;
+
 /*
  * @lc app=leetcode id=14 lang=java
  *
@@ -17,15 +19,14 @@ class Solution {
                     return strs[0].substring(0, i);
                 }
             }
-            
+
             return strs[0];
         } else {
             int l = strs.length / 2;
 
-            return longestCommonPrefix(new String[]{longestCommonPrefix(Arrays.copyOfRange(strs, 0, l))
-                                                  , longestCommonPrefix(Arrays.copyOfRange(strs, l, strs.length))});
+            return longestCommonPrefix(new String[] { longestCommonPrefix(Arrays.copyOfRange(strs, 0, l)),
+                    longestCommonPrefix(Arrays.copyOfRange(strs, l, strs.length)) });
         }
     }
 }
 // @lc code=end
-
