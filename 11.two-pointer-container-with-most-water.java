@@ -14,9 +14,7 @@ class Solution {
         while (lo < hi) {
             int area = Math.min(height[lo], height[hi]) * (hi - lo);
 
-            if (area > ans) {
-                ans = area;
-            }
+            ans = Math.max(area, ans);
 
             if (height[lo] < height[hi]) {
                 lo++;
