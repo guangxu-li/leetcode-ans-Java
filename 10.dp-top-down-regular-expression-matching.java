@@ -1,3 +1,4 @@
+// TODO Optimize the code to reduce space complexity to linear.
 /*
  * @lc app=leetcode id=10 lang=java
  *
@@ -23,7 +24,6 @@ class Solution {
         }
 
         boolean ans;
-
         if (j == p.length()) {
             ans = i == s.length();
         } else {
