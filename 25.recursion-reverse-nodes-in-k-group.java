@@ -27,18 +27,18 @@ class Solution {
 
         if (size < k) {
             return head;
-        } else {
-            ListNode nextHead = head;
-
-            for (int i = 0; i < k; i++) {
-                nextHead = nextHead.next;
-            }
-
-            ListNode dummy = reverseKNodes(head, k);
-            head.next = reverseKGroup(nextHead, k);
-
-            return dummy;
         }
+
+        ListNode nextHead = head;
+
+        for (int i = 0; i < k; i++) {
+            nextHead = nextHead.next;
+        }
+
+        h = reverseKNodes(head, k);
+        head.next = reverseKGroup(nextHead, k);
+
+        return h;
     }
 
     public ListNode reverseKNodes(ListNode head, int count) {
@@ -50,7 +50,7 @@ class Solution {
         ListNode curr = head.next;
         prev.next = null;
 
-        while (curr != null && count > 1) {
+        while (count > 1) {
             ListNode next = curr.next;
             curr.next = prev;
             prev = curr;
