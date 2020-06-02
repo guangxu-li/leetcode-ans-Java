@@ -1,4 +1,3 @@
-// TODO Optimize the code to reduce space complexity to linear.
 /*
  * @lc app=leetcode id=10 lang=java
  *
