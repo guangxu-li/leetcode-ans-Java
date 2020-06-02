@@ -1,3 +1,7 @@
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 /*
  * @lc app=leetcode id=25 lang=java
  *
@@ -19,6 +23,7 @@ class Solution {
     public ListNode reverseKGroup(ListNode head, int k) {
         int size = 0;
         ListNode h = head;
+
         while (h != null) {
             size++;
             h = h.next;
@@ -29,30 +34,22 @@ class Solution {
         }
 
         ListNode nextHead = head;
-        ListNode tail = new ListNode(0);
-        h = tail;
-        ListNode next = head;
+        ListNode dummy = new ListNode(0);
+        ListNode tail = dummy;
 
         while (size != 0) {
             if (size >= k) {
                 int count = k;
 
-                ListNode prev = nextHead;
-                ListNode curr = nextHead.next;
-                prev.next = null;
+                List<ListNode> list = new ArrayList<>();
 
-                while (count > 1) {
-                    next = curr.next;
-                    curr.next = prev;
-                    prev = curr;
-                    curr = next;
+                list = reverseKNodes(nextHead, count);
 
-                    count--;
-                }
+                tail.next = list.get(0);
+                nextHead = list.get(1);
 
-                tail.next = prev;
-                tail = nextHead;
-                nextHead = next;
+                tail = head;
+                head = nextHead;
 
                 size -= k;
             } else {
@@ -62,7 +59,24 @@ class Solution {
             }
         }
 
-        return h.next;
+        return dummy.next;
+    }
+
+    public List<ListNode> reverseKNodes(ListNode head, int count) {
+        ListNode curr = head.next;
+        ListNode prev = head;
+        prev.next = null;
+
+        while (count > 1) {
+            ListNode next = curr.next;
+            curr.next = prev;
+            prev = curr;
+            curr = next;
+
+            count--;
+        }
+
+        return Arrays.asList(prev, curr);
     }
 }
 // @lc code=end
