@@ -33,7 +33,8 @@ class Solution {
                     end = hi + 1;
                 }
 
-                // character in s but not in s == -1
+                // * < 0, still enough number of the char in the window or not the char in t
+                // * == 0, if the lose lose this char, the formed decrease one.
                 if (tCount[s.charAt(lo++)]++ == 0) {
                     formed--;
                 }
