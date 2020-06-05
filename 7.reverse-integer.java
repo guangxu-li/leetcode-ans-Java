@@ -16,7 +16,8 @@ class Solution {
             // * Integer.MIN_VALUE = -2147483648
             if (rev > Integer.MAX_VALUE / 10 || (rev == Integer.MAX_VALUE / 10 && pop > 7)) {
                 return 0;
-            } else if (rev < Integer.MIN_VALUE / 10 || (rev == Integer.MIN_VALUE / 10 && pop < -8)) {
+            } else if (rev < Integer.MIN_VALUE / 10
+                    || (rev == Integer.MIN_VALUE / 10 && pop < -8)) {
                 return 0;
             } else {
                 rev = rev * 10 + pop;
