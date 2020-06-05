@@ -7,14 +7,17 @@
 // @lc code=start
 class Solution {
     public String longestPalindrome(String s) {
+
         // code line +8 to line +15
         int strLen = 2 * s.length() + 3;
         char[] sChars = new char[strLen];
 
-        // ! to ignore special cases at the beginning and end of the array
-        // * "abc" -> @ # a # b # c # $
-        // * "" -> @#$
-        // * "a" -> @ # a # $
+        /*
+         * To ignore special cases at the beginning and end of the array
+         * "abc" -> @ # a # b # c # $
+         * "" -> @#$
+         * "a" -> @ # a # $
+         */
         sChars[0] = '@';
         sChars[strLen - 1] = '$';
         int t = 1;

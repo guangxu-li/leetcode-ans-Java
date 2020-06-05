@@ -27,6 +27,9 @@ class Solution {
             if (charArray[start] != charArray[start + len]) {
                 return false;
             }
+
+            start++;
+            len -= 2;
         }
 
         return true;
