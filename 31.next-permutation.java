@@ -14,7 +14,7 @@ class Solution {
         }
 
         if (lo >= 0) {
-            int hi = nextLarger(nums, lo + 1, nums.length);
+            int hi = nextLarger(nums, lo + 1, nums.length - 1);
             swap(nums, lo, hi);
         }
         swapArray(nums, lo + 1);
@@ -22,19 +22,18 @@ class Solution {
 
     public int nextLarger(int[] nums, int start, int end) {
         int target = nums[start - 1];
-        int ans = start;
 
-        while (start < end) {
-            int mid = (start + end) / 2;
+        while (start <= end) {
+            int mid = start + (end - start) / 2;
 
-            if (nums[mid] <= target) {
-                end = mid;
-            } else {
-                ans = mid;
+            if (nums[mid] > target) {
                 start = mid + 1;
+            } else {
+                end = mid - 1;
             }
         }
-        return ans;
+
+        return end;
     }
 
     public void swap(int[] nums, int i, int j) {
