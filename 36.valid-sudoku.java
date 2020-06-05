@@ -18,7 +18,9 @@ class Solution {
             for (int j = 0; j < row.length; j++) {
                 if (Character.isDigit(row[j])) {
                     int index = Character.getNumericValue(row[j]) - 1;
-                    if (validRow[index]++ != 0 || validCol[j][index]++ != 0 || validBlock[i / 3][j / 3][index]++ != 0) {
+                    if ((validRow[index]++ //
+                            + validCol[j][index]++ //
+                            + validBlock[i / 3][j / 3][index]++) != 0) {
                         return false;
                     }
                 }
