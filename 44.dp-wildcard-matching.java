@@ -23,8 +23,7 @@ class Solution {
                 }
             } else {
                 for (int j = 0; j <= s.length(); j++) {
-                    dp[currRow][j] =
-                            j != 0 && dp[1 - currRow][j - 1] && p.charAt(i - 1) == s.charAt(j - 1);
+                    dp[currRow][j] = j != 0 && dp[1 - currRow][j - 1] && p.charAt(i - 1) == s.charAt(j - 1);
                 }
             }
 
@@ -35,4 +34,3 @@ class Solution {
     }
 }
 // @lc code=end
-
