@@ -50,10 +50,6 @@ class Solution {
         while (lo <= hi) {
             int mid = (lo + hi) / 2;
 
-            if (nums[mid] > nums[mid + 1]) {
-                return mid + 1;
-            }
-
             if (nums[mid] >= nums[0]) {
                 lo = mid + 1;
             } else {
@@ -61,7 +57,7 @@ class Solution {
             }
         }
 
-        return -1;
+        return lo;
     }
 }
 // @lc code=end

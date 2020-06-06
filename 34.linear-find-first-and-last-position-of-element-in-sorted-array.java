@@ -7,7 +7,7 @@
 // @lc code=start
 class Solution {
     public int[] searchRange(int[] nums, int target) {
-        int[] ans = { -1, -1 };
+        int[] ans = {-1, -1};
 
         int curr = 0;
         for (int i = 0; i < nums.length; i++) {
@@ -16,6 +16,7 @@ class Solution {
                     ans[curr] = i;
                     curr = 1 - curr;
                 }
+
                 ans[curr] = i;
             }
         }
