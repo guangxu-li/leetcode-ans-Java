@@ -9,35 +9,28 @@ import java.util.List;
 
 // @lc code=start
 class Solution {
-    static String[] t2 = { "a", "b", "c" };
-    static String[] t3 = { "d", "e", "f" };
-    static String[] t4 = { "g", "h", "i" };
-    static String[] t5 = { "j", "k", "l" };
-    static String[] t6 = { "m", "n", "o" };
-    static String[] t7 = { "p", "q", "r", "s" };
-    static String[] t8 = { "t", "u", "v" };
-    static String[] t9 = { "w", "x", "y", "z" };
+    private static String[][] table =
+            {null, null, {"a", "b", "c"}, {"d", "e", "f"}, {"g", "h", "i"}, {"j", "k", "l"},
+                    {"m", "n", "o"}, {"p", "q", "r", "s"}, {"t", "u", "v"}, {"w", "x", "y", "z"}};
 
-    static String[][] table = { null, null, t2, t3, t4, t5, t6, t7, t8, t9 };
-
-    List<String> ans = new ArrayList<>();
+    private List<String> ans = new ArrayList<>();
 
     public List<String> letterCombinations(String digits) {
-        if (digits.length() != 0) {
-            backtrack("", digits);
+        if (!digits.isEmpty()) {
+            backtrack("", digits, 0);
         }
 
         return ans;
     }
 
-    public void backtrack(String combination, String digits) {
-        if (digits.length() == 0) {
+    public void backtrack(String combination, String digits, int pos) {
+        if (digits.length() == pos) {
             ans.add(combination);
         } else {
-            String[] t = table[Character.getNumericValue(digits.charAt(0))];
+            String[] t = table[Character.getNumericValue(digits.charAt(pos))];
 
-            for (String str : t) {
-                backtrack(combination + str, digits.substring(1));
+            for (String s : t) {
+                backtrack(combination + s, digits, pos + 1);
             }
         }
     }

@@ -11,43 +11,30 @@ class Solution {
     public int threeSumClosest(int[] nums, int target) {
         Arrays.sort(nums);
 
-        int ans = 100000;
+        int diff = Integer.MAX_VALUE;
 
-        for (int i = 0; i < nums.length - 2; i++) {
-            int num = target - nums[i];
-            int sum = nums[i] + twoSumClosest(nums, i + 1, num);
-            if (Math.abs(sum - target) < Math.abs(ans - target)) {
-                ans = sum;
+        for (int i = 0; i < nums.length - 2 && diff != 0; i++) {
+            int lo = i + 1;
+            int hi = nums.length - 1;
+
+            while (lo < hi) {
+                int sum = nums[i] + nums[lo] + nums[hi];
+
+                if (Math.abs(sum - target) < Math.abs(diff)) {
+                    diff = sum - target;
+                }
+
+                if (sum < target) {
+                    lo++;
+                } else if (sum == target) {
+                    break;
+                } else {
+                    hi--;
+                }
             }
         }
 
-        return ans;
-    }
-
-    public int twoSumClosest(int[] nums, int start, int target) {
-
-        int lo = start;
-        int hi = nums.length - 1;
-
-        int ans = 100000;
-
-        while (lo < hi) {
-            int sum = nums[lo] + nums[hi];
-
-            if (sum == target) {
-                return sum;
-            } else if (sum < target) {
-                lo++;
-            } else {
-                hi--;
-            }
-
-            if (Math.abs(sum - target) < Math.abs(ans - target)) {
-                ans = sum;
-            }
-        }
-
-        return ans;
+        return diff + target;
     }
 }
 // @lc code=end
