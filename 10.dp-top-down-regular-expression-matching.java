@@ -10,7 +10,7 @@ class Solution {
         TRUE, FALSE
     }
 
-    Result[][] dp;
+    private Result[][] dp;
 
     public boolean isMatch(String s, String p) {
         dp = new Result[s.length() + 1][p.length() + 1];
@@ -26,7 +26,8 @@ class Solution {
         if (j == p.length()) {
             ans = i == s.length();
         } else {
-            boolean firstMatch = i != s.length() && (s.charAt(i) == p.charAt(j) || p.charAt(j) == '.');
+            boolean firstMatch =
+                    i != s.length() && (s.charAt(i) == p.charAt(j) || p.charAt(j) == '.');
 
             if (j < p.length() - 1 && p.charAt(j + 1) == '*') {
                 ans = match(s, i, p, j + 2) || (firstMatch && match(s, i + 1, p, j));
