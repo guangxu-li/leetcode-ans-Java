@@ -13,14 +13,16 @@ class Solution {
         Set<Character> set = new HashSet<>();
         int max = 0;
 
-        for (int i = 0, j = 0; j < s.length();) {
-            if (set.contains(s.charAt(j))) {
-                set.remove(s.charAt(i++));
-                continue;
-            }
+        int lo = 0;
+        int hi = 0;
 
-            set.add(s.charAt(j++));
-            max = Math.max(max, set.size());
+        while (hi < s.length()) {
+            if (!set.contains(s.charAt(hi))) {
+                set.add(s.charAt(hi++));
+                max = Math.max(max, set.size());
+            } else {
+                set.remove(s.charAt(lo++));
+            }
         }
 
         return max;

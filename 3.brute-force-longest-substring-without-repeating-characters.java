@@ -5,39 +5,39 @@ import java.util.Set;
  * @lc app=leetcode id=3 lang=java
  *
  * [3] Longest Substring Without Repeating Characters
-*/
-
-// ! The logic of the solution is right, but since it's too slow, it exceeds time limit of leetcode
+ */
 
 // @lc code=start
 class Solution {
     public int lengthOfLongestSubstring(String s) {
-        // the smallest value of ans is 0
-        // e.g empty string ""
+        int n = s.length();
         int ans = 0;
-        for (int i = 0; i < s.length(); i++) {
-            for (int j = i; j < s.length(); j++) {
-                Set<Character> set = new HashSet<>();
-                boolean isRepeat = false;
 
-                for (int k = i; k <= j; k++) {
-                    if (set.contains(s.charAt(k))) {
-                        isRepeat = true;
-                        break;
-                    } else {
-                        set.add(s.charAt(k));
-                    }
-                }
-
-                if (!isRepeat) {
-                    ans = Math.max(ans, j - i + 1);
-                } else {
-                    break;
+        for (int i = 0; i < n; i++) {
+            for (int j = i + 1; j <= n; j++) {
+                if (allUnique(s, i, j)) {
+                    ans = Math.max(ans, j - i);
                 }
             }
         }
 
         return ans;
+    }
+
+    public boolean allUnique(String s, int start, int end) {
+        Set<Character> set = new HashSet<>();
+
+        for (int i = start; i < end; i++) {
+            Character ch = s.charAt(i);
+
+            if (set.contains(ch)) {
+                return false;
+            }
+
+            set.add(ch);
+        }
+
+        return true;
     }
 }
 // @lc code=end

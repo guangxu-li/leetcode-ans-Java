@@ -10,19 +10,17 @@ class Solution {
         int lo = 0;
         int hi = nums.length - 1;
 
-        for (int i = 0; i <= hi;) {
-            switch (nums[i]) {
-                case 0:
-                    nums[i++] = nums[lo];
-                    nums[lo++] = 0;
-                    break;
-                case 2:
-                    nums[i] = nums[hi];
-                    nums[hi--] = 2;
-                    break;
-                default:
-                    i++;
-                    break;
+        int i = 0;
+
+        while (i <= hi) {
+            if (nums[i] == 0) {
+                nums[i++] = nums[lo];
+                nums[lo++] = 0;
+            } else if (nums[i] == 2) {
+                nums[i] = nums[hi];
+                nums[hi--] = 2;
+            } else {
+                i++;
             }
         }
     }

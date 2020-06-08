@@ -8,12 +8,11 @@
 class Solution {
     public int lengthOfLongestSubstring(String s) {
         int[] window = new int[256];
-        char[] sChars = s.toCharArray();
         int max = 0;
 
         for (int start = 0, end = 0; end < s.length(); end++) {
-            start = Math.max(start, window[sChars[end]]);
-            window[sChars[end]] = end + 1;
+            start = Math.max(start, window[s.charAt(end)]);
+            window[s.charAt(end)] = end + 1;
 
             max = Math.max(max, end - start + 1);
         }

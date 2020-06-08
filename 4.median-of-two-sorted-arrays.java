@@ -7,26 +7,39 @@
 // @lc code=start
 class Solution {
     public double findMedianSortedArrays(int[] nums1, int[] nums2) {
-        int m = nums1.length;
-        int n = nums2.length;
 
-        int lo = 0;
-        int hi = m;
-
-        if (m > n) {
+        if (nums1.length > nums2.length) {
             return findMedianSortedArrays(nums2, nums1);
         }
 
-        while (lo <= hi) {
-            int i = (lo + hi) / 2;
-            int j = (m + n + 1) / 2 - i;
+        int lo = 0;
+        int hi = nums1.length;
 
-            if (i != hi && nums2[j - 1] > nums1[i]) {
-                lo = i + 1;
-            } else if (i != lo && nums1[i - 1] > nums2[j]) {
+        while (lo <= hi) {
+            int i = lo + (hi - lo) / 2;
+            int j = (nums1.length + nums2.length) / 2 - i;
+
+            if (i > 0 && nums1[i - 1] > nums2[j]) {
                 hi = i - 1;
+            } else if (i < nums1.length && nums1[i] < nums2[j - 1]) {
+                lo = i + 1;
             } else {
-                int maxLeft = 0;
+
+                double minRight = 0;
+
+                if (i == nums1.length) {
+                    minRight = nums2[j];
+                } else if (j == nums2.length) {
+                    minRight = nums1[i];
+                } else {
+                    minRight = Math.min(nums1[i], nums2[j]);
+                }
+
+                if (((nums1.length + nums2.length) % 2) != 0) {
+                    return minRight;
+                }
+
+                double maxLeft = 0;
                 if (i == 0) {
                     maxLeft = nums2[j - 1];
                 } else if (j == 0) {
@@ -35,20 +48,7 @@ class Solution {
                     maxLeft = Math.max(nums1[i - 1], nums2[j - 1]);
                 }
 
-                if ((m + n) % 2 == 1) {
-                    return maxLeft;
-                }
-
-                int minRight = 0;
-                if (i == m) {
-                    minRight = nums2[j];
-                } else if (j == n) {
-                    minRight = nums1[i];
-                } else {
-                    minRight = Math.min(nums1[i], nums2[j]);
-                }
-
-                return (maxLeft + minRight) / 2.0;
+                return (maxLeft + minRight) / 2;
             }
         }
 
