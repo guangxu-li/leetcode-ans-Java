@@ -13,7 +13,7 @@ class Solution {
     private List<List<Integer>> ans = new ArrayList<>();
 
     public List<List<Integer>> permute(int[] nums) {
-        backtrack(toList(nums), 0, new ArrayList<>());
+        backtrack(toList(nums), 0);
 
         return ans;
     }
@@ -28,7 +28,7 @@ class Solution {
         return list;
     }
 
-    public void backtrack(List<Integer> nums, int pos, List<Integer> permutation) {
+    public void backtrack(List<Integer> nums, int pos) {
         if (pos == nums.size()) {
             ans.add(new ArrayList<>(nums));
         }
@@ -37,7 +37,7 @@ class Solution {
         for (int i = pos; i < nums.size(); i++) {
             Collections.swap(nums, pos, i);
 
-            backtrack(nums, pos + 1, permutation);
+            backtrack(nums, pos + 1);
 
             Collections.swap(nums, pos, i);
         }
