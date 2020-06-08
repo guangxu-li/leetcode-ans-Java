@@ -25,7 +25,6 @@ class Solution {
         ListNode prev = dummy;
 
         while (head != null && head.next != null) {
-            // initialize start pointers
             ListNode l = head;
             ListNode r = head.next;
 
@@ -33,12 +32,10 @@ class Solution {
             prev.next = r;
             prev = l;
 
-            // move to next group
             head = r.next;
 
-            // swap current group
             r.next = l;
-            l.next = head; // for odd size input
+            l.next = head; /* for odd size input */
         }
 
         return dummy.next;
