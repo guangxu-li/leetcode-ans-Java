@@ -1,4 +1,3 @@
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -21,55 +20,53 @@ import java.util.List;
  */
 class Solution {
     public ListNode reverseKGroup(ListNode head, int k) {
-        int size = 0;
+
+        // no need to reverse
+        if (k < 2 || head == null || head.next == null) {
+            return head;
+        }
+
+        // get number of nodes
         ListNode h = head;
+        int size = 0;
 
         while (h != null) {
             size++;
             h = h.next;
         }
 
-        if (size < k || k < 2) {
-            return head;
+        ListNode prevTail = new ListNode(0);
+        h = prevTail; /* return h.next */
+        ListNode currHead = head;
+
+        while (size >= 2 && size >= k) {
+
+            // get head of current reversed group and tail of next group
+            List<ListNode> currGroup = reverseKNodes(currHead, k);
+
+            prevTail.next = currGroup.get(0);
+            prevTail = currHead;
+            currHead = currGroup.get(1);
+
+            size -= k;
         }
 
-        ListNode nextHead = head;
-        ListNode dummy = new ListNode(0);
-        ListNode tail = dummy;
+        prevTail.next = currHead; /* remaining nodes that don't need to reverse */
 
-        while (size != 0) {
-            if (size >= k) {
-                int count = k;
-
-                List<ListNode> list = new ArrayList<>();
-
-                list = reverseKNodes(nextHead, count);
-
-                tail.next = list.get(0);
-                nextHead = list.get(1);
-
-                tail = head;
-                head = nextHead;
-
-                size -= k;
-            } else {
-                tail.next = nextHead;
-
-                size = 0;
-            }
-        }
-
-        return dummy.next;
+        return h.next;
     }
 
     public List<ListNode> reverseKNodes(ListNode head, int count) {
-        ListNode curr = head.next;
-        ListNode prev = head;
-        prev.next = null;
 
-        while (count > 1) {
+        // initialize pointers position
+        ListNode prev = head;
+        ListNode curr = head.next;
+
+        while (count - 1 > 0) {
             ListNode next = curr.next;
+
             curr.next = prev;
+
             prev = curr;
             curr = next;
 
