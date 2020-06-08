@@ -33,7 +33,7 @@ class Solution {
             ans.add(new ArrayList<>(nums));
         }
 
-        // nums[pos] as start point
+        // pos as start point for nums from pos to the end
         for (int i = pos; i < nums.size(); i++) {
             Collections.swap(nums, pos, i);
 
