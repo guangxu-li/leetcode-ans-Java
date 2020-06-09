@@ -13,16 +13,21 @@ class Solution {
         int pStar = -1;
         int sStar = -1;
         while (sIdx < s.length()) {
+
+            /*
+             * if pIdx == p.length() 
+             * -> check if it's in '*' attmpting process 
+             * -> if not, failed to match
+             */
             if (pIdx < p.length() && (p.charAt(pIdx) == '?' || p.charAt(pIdx) == s.charAt(sIdx))) {
-                sIdx++;
                 pIdx++;
             } else if (pIdx < p.length() && p.charAt(pIdx) == '*') {
                 pStar = ++pIdx;
                 sStar = sIdx;
-            } else if (sStar != -1) {
+            } else if (sStar != -1) { /* fail to match in '*' attmpting process */
                 pIdx = pStar;
                 sIdx = ++sStar;
-            } else {
+            } else { /* not in '*' attmpting process and fail to math */
                 return false;
             }
         }
