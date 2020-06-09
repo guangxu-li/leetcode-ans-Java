@@ -10,8 +10,9 @@ class Solution {
         int sIdx = 0;
         int pIdx = 0;
 
-        int pStar = -1;
         int sStar = -1;
+        int pStar = -1;
+
         while (sIdx < s.length()) {
 
             /*
@@ -21,7 +22,8 @@ class Solution {
              */
             if (pIdx < p.length() && (p.charAt(pIdx) == '?' || p.charAt(pIdx) == s.charAt(sIdx))) {
                 pIdx++;
-            } else if (pIdx < p.length() && p.charAt(pIdx) == '*') {
+                sIdx++;
+            } else if (pIdx < p.length() && (p.charAt(pIdx) == '*')) {
                 pStar = ++pIdx;
                 sStar = sIdx;
             } else if (sStar != -1) { /* fail to match in '*' attmpting process */
@@ -32,10 +34,12 @@ class Solution {
             }
         }
 
-        for (int i = pIdx; i < p.length(); i++) {
-            if (p.charAt(i) != '*') {
+        while (pIdx < p.length()) {
+            if (p.charAt(pIdx) != '*') {
                 return false;
             }
+
+            pIdx++;
         }
 
         return true;
