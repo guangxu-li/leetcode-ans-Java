@@ -13,17 +13,15 @@ class Solution {
         dp[1 - currRow][0] = true;
 
         for (int i = 1; i <= p.length(); i++) {
-            if (p.charAt(i - 1) == '*') {
-                for (int j = 0; j <= s.length(); j++) {
-                    dp[currRow][j] = dp[1 - currRow][j] || (j != 0) && dp[currRow][j - 1];
-                }
-            } else if (p.charAt(i - 1) == '?') {
-                for (int j = 0; j <= s.length(); j++) {
-                    dp[currRow][j] = j != 0 && dp[1 - currRow][j - 1];
-                }
-            } else {
-                for (int j = 0; j <= s.length(); j++) {
-                    dp[currRow][j] = j != 0 && dp[1 - currRow][j - 1] && p.charAt(i - 1) == s.charAt(j - 1);
+            for (int j = 0; j <= s.length(); j++) {
+                if (j == 0) {
+                    dp[currRow][j] = p.charAt(i - 1) == '*' && dp[1 - currRow][j];
+                } else if (p.charAt(i - 1) == '*') {
+                    dp[currRow][j] = dp[1 - currRow][j] || dp[currRow][j - 1];
+                } else if (p.charAt(i - 1) == '?') {
+                    dp[currRow][j] = dp[1 - currRow][j - 1];
+                } else {
+                    dp[currRow][j] = p.charAt(i - 1) == s.charAt(j - 1) && dp[1 - currRow][j - 1];
                 }
             }
 
