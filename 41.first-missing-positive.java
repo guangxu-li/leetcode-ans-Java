@@ -8,8 +8,7 @@
 class Solution {
     public int firstMissingPositive(int[] nums) {
         int ans = 1;
-        // if there's a 1 in nums
-        boolean flag = false;
+        boolean flag = false; /* if there's number 1 in the input */
 
         for (int i = 0; i < nums.length; i++) {
             if (nums[i] <= 0 || nums[i] > nums.length) {
@@ -19,22 +18,14 @@ class Solution {
             }
         }
 
-        for (int i : nums) {
-            int idx = Math.abs(i);
-            if (idx == 1 && flag && nums[idx % nums.length] > 0) {
-                nums[idx % nums.length] = -nums[idx % nums.length];
-            }
-
-            if (idx != 1 && nums[idx % nums.length] > 0) {
+        for (int num : nums) {
+            int idx = Math.abs(num);
+            if ((idx != 1 || flag) && nums[idx % nums.length] > 0) {
                 nums[idx % nums.length] = -nums[idx % nums.length];
             }
         }
 
-        while (ans <= nums.length) {
-            if (nums[ans % nums.length] > 0) {
-                break;
-            }
-
+        while (ans <= nums.length && nums[ans % nums.length] <= 0) {
             ans++;
         }
 
