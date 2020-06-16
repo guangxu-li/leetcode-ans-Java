@@ -10,7 +10,6 @@ import java.util.Stack;
 class Solution {
     public int trap(int[] height) {
         Stack<Integer> stack = new Stack<>();
-
         int ans = 0;
 
         for (int i = 0; i < height.length; i++) {
@@ -22,7 +21,6 @@ class Solution {
                 }
 
                 int dis = i - stack.peek() - 1;
-
                 ans += dis * (Math.min(height[stack.peek()], height[i]) - height[prev]);
             }
 

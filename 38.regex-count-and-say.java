@@ -15,17 +15,14 @@ class Solution {
         String regex = "(.)\\1*";
         Pattern pattern = Pattern.compile(regex);
 
-        while (n > 1) {
-            String prev = new String(ans);
+        while (n != 0) {
+            String prev = ans;
             ans = new String();
 
             Matcher m = pattern.matcher(prev);
-
             while (m.find()) {
                 ans += Integer.toString(m.group().length()) + m.group().charAt(0);
             }
-
-            n--;
         }
 
         return ans;

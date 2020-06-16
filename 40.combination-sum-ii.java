@@ -10,11 +10,7 @@ import java.util.List;
 
 // @lc code=start
 class Solution {
-    private List<List<Integer>> ans;
-
-    Solution() {
-        ans = new ArrayList<>();
-    }
+    private List<List<Integer>> ans = new ArrayList<>();
 
     public List<List<Integer>> combinationSum2(int[] candidates, int target) {
         Arrays.sort(candidates);
@@ -27,7 +23,6 @@ class Solution {
     public void backtrack(List<Integer> list, int[] candidates, int offset, int target) {
         for (int i = offset; i < candidates.length; i++) {
             int num = target - candidates[i];
-
             if (num < 0) {
                 break;
             }
@@ -37,13 +32,11 @@ class Solution {
             }
 
             list.add(candidates[i]);
-
             if (num == 0) {
-                ans.add(new ArrayList(list));
+                ans.add(new ArrayList<>(list));
             } else {
                 backtrack(list, candidates, i + 1, num);
             }
-
             list.remove(list.size() - 1);
         }
     }
