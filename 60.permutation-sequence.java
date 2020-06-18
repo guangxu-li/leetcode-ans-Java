@@ -1,3 +1,6 @@
+import java.util.ArrayList;
+import java.util.List;
+
 /*
  * @lc app=leetcode id=60 lang=java
  *
@@ -6,57 +9,28 @@
 
 // @lc code=start
 class Solution {
-    private char[] ans;
-
-    private int count;
-    private int size;
-    private boolean flag = false; /* if we have found the k-th sequence */
-
     public String getPermutation(int n, int k) {
-        count = k;
-        size = n;
+        int[] factorial = new int[n];
+        List<Integer> nums = new ArrayList<>();
 
-        ans = new char[n];
-        for (int i = 0; i < size; i++) {
-            ans[i] = (char) ('0' + i + 1);
+        factorial[0] = 1;
+        nums.add(1);
+        for (int i = 1; i < n; i++) {
+            factorial[i] = i * factorial[i - 1];
+            nums.add(i + 1);
         }
 
+        k--;
+        StringBuilder permutation = new StringBuilder();
+        for (int i = n - 1; i >= 0; i--) {
+            int idx = k / factorial[i];
+            k -= idx * factorial[i];
 
-        backtrack(0);
-
-        return String.valueOf(ans);
-    }
-
-    private void backtrack(int pos) {
-        if (pos == size) {
-            count--;
-
-            if (count == 0) {
-                flag = true;
-            }
-        } else {
-            if (pos != size - 1 && ans[pos] > ans[pos + 1]) {
-                swap(ans, pos, pos + 1);
-            }
-
-            for (int i = pos; i < size; i++) {
-                swap(ans, pos, i);
-
-                backtrack(pos + 1);
-
-                if (flag) {
-                    break;
-                }
-
-                swap(ans, pos, i);
-            }
+            permutation.append(nums.get(idx));
+            nums.remove(idx);
         }
-    }
 
-    private void swap(char[] chars, int a, int b) {
-        char tmp = chars[a];
-        chars[a] = chars[b];
-        chars[b] = tmp;
+        return permutation.toString();
     }
 }
 // @lc code=end
