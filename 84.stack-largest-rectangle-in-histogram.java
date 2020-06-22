@@ -1,5 +1,3 @@
-import java.util.Stack;
-
 /*
  * @lc app=leetcode id=84 lang=java
  *
@@ -9,19 +7,19 @@ import java.util.Stack;
 // @lc code=start
 class Solution {
     public int largestRectangleArea(int[] heights) {
-        Stack<Integer> stack = new Stack<>();
-        stack.push(-1);
+        int[] stack = new int[heights.length + 2]; /* 1. push -1, 2. end phase*/
+        int top = 0; /* serve as stack top pointer */
+        stack[top] = -1;
 
         int maxArea = 0;
         for (int i = 0; i <= heights.length; i++) {
-            while (stack.peek() != -1
-                    && (i == heights.length || heights[stack.peek()] >= heights[i])) {
-                int height = heights[stack.pop()];
-                int distance = i - stack.peek() - 1;
+            while (stack[top] != -1 && (i == heights.length || heights[i] <= heights[stack[top]])) {
+                int height = heights[stack[top--]];
+                int distance = i - stack[top] - 1;
                 maxArea = Math.max(maxArea, height * distance);
             }
 
-            stack.push(i);
+            stack[++top] = i;
         }
 
         return maxArea;
