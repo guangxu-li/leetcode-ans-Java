@@ -18,7 +18,7 @@
 class Solution {
     public ListNode mergeKLists(ListNode[] lists) {
         int minIndex = 0;
-        ListNode head = new ListNode(-1);
+        ListNode head = new ListNode(0);
         ListNode h = head;
 
         while (true) {

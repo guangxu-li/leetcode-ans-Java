@@ -32,7 +32,7 @@ class Solution {
     }
 
     public ListNode mergeTwoLists(ListNode l1, ListNode l2) {
-        ListNode head = new ListNode(-1);
+        ListNode head = new ListNode(0);
         ListNode prev = head;
 
         while (l1 != null && l2 != null) {

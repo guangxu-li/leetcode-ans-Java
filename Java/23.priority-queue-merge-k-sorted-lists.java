@@ -36,7 +36,7 @@ class Solution {
             }
         }
 
-        ListNode head = new ListNode(-1);
+        ListNode head = new ListNode(0);
         ListNode h = head;
 
         while (!queue.isEmpty()) {
