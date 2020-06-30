@@ -11,13 +11,11 @@ import java.util.List;
 class Solution {
     public String minWindow(String s, String t) {
         int[] tCount = new int[256];
-
         for (int i = 0; i < t.length(); i++) {
             tCount[t.charAt(i)]++;
         }
 
         List<Pair<Integer, Character>> st = new ArrayList<>();
-
         for (int i = 0; i < s.length(); i++) {
             if (tCount[s.charAt(i)] > 0) {
                 st.add(new Pair<Integer, Character>(i, s.charAt(i)));
@@ -55,9 +53,9 @@ class Solution {
             }
         }
 
-        // ! default return ""
-        // * start to end + 1 will default return s.charAt[0] which may
-        // * lead to some problem
+        /* default return ""
+         * start to end + 1 will default return s.charAt[0] which may
+         * lead to some problem */
         return s.substring(start, end);
     }
 }
