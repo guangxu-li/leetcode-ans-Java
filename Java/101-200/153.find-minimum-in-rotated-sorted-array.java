@@ -7,10 +7,6 @@
 // @lc code=start
 class Solution {
     public int findMin(int[] nums) {
-        if (nums.length == 1) {
-            return nums[0];
-        }
-
         int lo = 0;
         int hi = nums.length - 1;
 
@@ -21,10 +17,6 @@ class Solution {
         while (lo <= hi) {
             int mid = (hi + lo) / 2;
 
-            if (nums[mid] > nums[mid + 1]) {
-                return nums[mid + 1];
-            }
-
             if (nums[mid] >= nums[0]) {
                 lo = mid + 1;
             } else {
@@ -32,7 +24,7 @@ class Solution {
             }
         }
 
-        return -1;
+        return nums[lo];
     }
 }
 // @lc code=end
