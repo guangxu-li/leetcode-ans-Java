@@ -16,14 +16,14 @@ class Solution {
         StringBuilder ans = new StringBuilder();
 
         for (int i = 0; i < Math.min(len, numRows); i++) {
-            int inteval = 2 * numRows - 2 - 2 * i;
+            int interval = 2 * numRows - 2 - 2 * i;
             ans.append(charArray[i]);
-            for (int j = inteval + i; j < len; j = j + inteval) {
-                if (inteval != 0) {
+            for (int j = interval + i; j < len; j = j + interval) {
+                if (interval != 0) {
                     ans.append(charArray[j]);
                 }
 
-                inteval = 2 * numRows - 2 - inteval;
+                interval = 2 * numRows - 2 - interval;
             }
         }
 

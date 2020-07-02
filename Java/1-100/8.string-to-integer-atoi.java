@@ -7,11 +7,14 @@
 // @lc code=start
 class Solution {
     public int myAtoi(String str) {
-        // 0: start + " " -> 0, + "+" / "-" -> 1, +number -> 2, +other -> end
-        // 1: signed + number -> 2, else -> end
-        // 2: number + number -> 2, else -> end
-        // 3: end
-        int[][] state = new int[][] { { 0, 1, 2, 3 }, { 3, 3, 2, 3 }, { 3, 3, 2, 3 }, { 3, 3, 3, 3 } };
+
+        /* 
+         *0: start + " " -> 0, + "+" / "-" -> 1, +number -> 2, +other -> end
+         * 1: signed + number -> 2, else -> end
+         * 2: number + number -> 2, else -> end
+         * 3: end
+         */
+        int[][] state = new int[][] {{0, 1, 2, 3}, {3, 3, 2, 3}, {3, 3, 2, 3}, {3, 3, 3, 3}};
         int curr = 0;
         int sign = 1;
 

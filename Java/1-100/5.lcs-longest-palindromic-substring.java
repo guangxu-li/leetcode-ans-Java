@@ -29,11 +29,9 @@ class Solution {
          * for orginal string, from sChars[0] to sChars[len - 1]
          * for reversed view, from sChars[len - 1] to sChars[0];
          */
-        for (int i = 0; i <= len; i++) {
-            for (int j = len; j >= 0; j--) {
-                if (i == 0 || j == len) {
-                    dp[currRow][j] = 0;
-                } else if (sChars[i - 1] == sChars[j]) {
+        for (int i = 1; i <= len; i++) {
+            for (int j = len - 1; j >= 0; j--) {
+                if (sChars[i - 1] == sChars[j]) {
                     dp[currRow][j] = dp[1 - currRow][j + 1] + 1;
                     int currLen = dp[currRow][j];
 
