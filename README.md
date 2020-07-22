@@ -6,6 +6,8 @@ For solutions' thoughts, please refer to https://wiki.guangxuli.com/computer-sci
 
 For solution in other program language, please refer to:
 
-[LeetCode in Java](https://github.com/guangxu-li/leetcode-in-java)
-[LeetCode in Go](https://github.com/guangxu-li/leetcode-in-go)
+[LeetCode in Java](https://github.com/guangxu-li/leetcode-in-java)  
+
+[LeetCode in Go](https://github.com/guangxu-li/leetcode-in-go)  
+
 [LeetCode in Python](https://github.com/guangxu-li/leetcode-in-python)
