@@ -28,19 +28,24 @@ class Solution {
         List<Integer> values = new ArrayList<Integer>();
 
         while (root != null) {
-            values.add(root.val);
-
-            if (root.left != null) {
+            if (root.left == null) {
+                values.add(root.val);
+                root = root.right;
+            } else {
                 TreeNode rightMost = root.left;
 
-                while (rightMost.right != null) {
+                while (rightMost.right != null && rightMost.right != root) {
                     rightMost = rightMost.right;
                 }
 
-                rightMost.right = root.right;
-                root = root.left;
-            } else {
-                root = root.right;
+                if (rightMost.right == null) {
+                    values.add(root.val);
+                    rightMost.right = root;
+                    root = root.left;
+                } else {
+                    rightMost.right = null;
+                    root = root.right;
+                }
             }
         }
 

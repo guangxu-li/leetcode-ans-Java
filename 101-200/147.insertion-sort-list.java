@@ -42,7 +42,7 @@ class Solution {
             prev.next = node;
             node.next = next;
 
-            node = sorted;
+            node = sorted.next;
         }
 
         return h.next;
