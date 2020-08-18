@@ -1,6 +1,3 @@
-import java.util.ArrayList;
-import java.util.List;
-
 /*
  * @lc app=leetcode id=76 lang=java
  *
@@ -10,47 +7,55 @@ import java.util.List;
 // @lc code=start
 class Solution {
     public String minWindow(String s, String t) {
-        int[] tCount = new int[256];
-        for (int i = 0; i < t.length(); i++) {
-            tCount[t.charAt(i)]++;
+        if (s.length() == 0 || t.length() == 0) {
+            return "";
         }
 
-        List<Pair<Integer, Character>> st = new ArrayList<>();
+        char[] tc = t.toCharArray();
+        int[] tcount = new int[256];
+        for (char c : tc) {
+            tcount[c]++;
+        }
+
+        int[][] sc = new int[s.length()][];
+        int index = 0;
         for (int i = 0; i < s.length(); i++) {
-            if (tCount[s.charAt(i)] > 0) {
-                st.add(new Pair<Integer, Character>(i, s.charAt(i)));
+            char c = s.charAt(i);
+            if (tcount[c] > 0) {
+                sc[index++] = new int[] {i, c};
             }
         }
 
-        // index of the minimum window / res windows
+        int unformed = t.length(); // number of characters in t has not been included
+
+        // candidate window info
+        int minLen = Integer.MAX_VALUE;
         int start = 0;
         int end = 0;
-        int min = Integer.MAX_VALUE; // min size of ans window
 
-        int formed = 0; // number of characters in t which has been included
-
-        for (int lo = 0, hi = 0; hi < st.size(); hi++) {
-
-            char c = st.get(hi).getValue();
-
-            if (tCount[c]-- > 0) {
-                formed++;
+        // current window info
+        int lo = 0;
+        int hi = 0;
+        while (hi < index) {
+            if (tcount[sc[hi][1]]-- > 0) {
+                unformed--;
             }
 
-            while (lo <= hi && formed == t.length()) {
-                c = st.get(lo).getValue();
-                if (st.get(hi).getKey() - st.get(lo).getKey() + 1 < min) {
-                    end = st.get(hi).getKey() + 1;
-                    start = st.get(lo).getKey();
-                    min = end - start + 1;
+            while (lo <= hi && unformed == 0) {
+                int high = sc[hi][0];
+                int low = sc[lo][0];
+                if (high - low + 1 < minLen) {
+                    minLen = high - low + 1;
+                    start = low;
+                    end = high + 1;
                 }
 
-                if (tCount[c]++ == 0) {
-                    formed--;
+                if (tcount[sc[lo++][1]]++ == 0) {
+                    unformed++;
                 }
-
-                lo++;
             }
+
+            hi++;
         }
 
         /* default return ""
@@ -60,3 +65,4 @@ class Solution {
     }
 }
 // @lc code=end
+
