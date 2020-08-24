@@ -12,10 +12,8 @@ class Solution {
         for (int i = 1; i <= amount; i++) {
             dp[i] = -1;
             for (int coin : coins) {
-                if (i >= coin) {
-                    if (dp[i - coin] != -1) {
-                        dp[i] = dp[i] == -1 ? 1 + dp[i - coin] : Math.min(dp[i], 1 + dp[i - coin]);
-                    }
+                if (i >= coin && dp[i - coin] != -1) {
+                    dp[i] = dp[i] == -1 ? 1 + dp[i - coin] : Math.min(dp[i], 1 + dp[i - coin]);
                 }
             }
         }
