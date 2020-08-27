@@ -28,7 +28,6 @@ class MedianFinder {
         } else {
             return quickselect(n, lo, pivot - 1);
         }
-
     }
 
     private int partition(int lo, int hi, int pivot) {
