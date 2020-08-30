@@ -1,6 +1,6 @@
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Stack;
+import java.util.Deque;
 
 /*
  * @lc app=leetcode id=20 lang=java
@@ -21,7 +21,7 @@ class Solution {
     }
 
     public boolean isValid(String s) {
-        Stack<Character> stack = new Stack<>();
+        Deque<Character> stack = new ArrayDeque<>();
 
         char[] charArray = s.toCharArray();
 
