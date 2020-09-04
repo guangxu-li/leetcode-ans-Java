@@ -50,4 +50,9 @@ class Solution {
         return head.next;
     }
 }
+
+
+class ListNode {
+
+}
 // @lc code=end
