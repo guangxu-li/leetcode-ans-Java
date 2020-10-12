@@ -7,18 +7,22 @@
 // @lc code=start
 class Solution {
     public int maxProduct(int[] nums) {
-        int globalMax = 0;
-        int localMax = 0;
-        int localMin = 0;
+        if (nums.length == 0) {
+            return 0;
+        }
+
+        int globalMax = nums[0];
+        int localMax = 1;
+        int localMin = 1;
 
         for (int num : nums) {
-            int a = localMax;
-            int b = localMin;
+            int a = localMax * num;
+            int b = localMin * num;
 
-            localMax = Math.max(num, Math.max(a * num, b * num));
-            localMin = Math.min(num, Math.min(a * num, b * num));
+            localMax = Math.max(num, Math.max(a, b));
+            localMin = Math.min(num, Math.min(a, b));
 
-            globalMax = Math.max(localMax, localMin);
+            globalMax = Math.max(globalMax, localMax);
         }
 
         return globalMax;
