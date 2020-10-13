@@ -11,9 +11,9 @@
  */
 
 public class Solution extends Reader4 {
-    private int buffPtr = 0;
-    private int buffCnt = 0;
-    private char[] buffer = new char[4];
+    private char[] buf4 = new char[4];
+    private int count = 0;
+    private int buf4Idx = 0;
 
     /**
      * @param buf Destination buffer
@@ -21,23 +21,23 @@ public class Solution extends Reader4 {
      * @return    The number of actual characters read
      */
     public int read(char[] buf, int n) {
-        int ptr = 0;
-        while (ptr < n) {
-            if (buffPtr == buffCnt) {
-                buffCnt = read4(buffer);
-                buffPtr = 0;
-
-                if (buffCnt == 0) {
-                    break;
-                }
+        int wrote = 0;
+        while (wrote < n) {
+            if (buf4Idx == count) {
+                count = read4(buf4);
+                buf4Idx = 0;
             }
 
-            while (ptr < n && buffPtr < buffCnt) {
-                buf[ptr++] = buffer[buffPtr++];
+            if (count == 0) {
+                break;
+            }
+
+            while (wrote < n && buf4Idx < count) {
+                buf[wrote++] = buf4[buf4Idx++];
             }
         }
 
-        return ptr;
+        return wrote;
     }
 }
 // @lc code=end
