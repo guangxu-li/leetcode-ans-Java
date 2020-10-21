@@ -10,19 +10,15 @@ class Solution {
         int lo = 0;
         int hi = numbers.length - 1;
 
-        while (lo < hi) {
-            int sum = numbers[lo] + numbers[hi];
-
-            if (sum == target) {
-                return new int[] {lo + 1, hi + 1};
-            } else if (sum > target) {
-                hi--;
-            } else {
+        while (numbers[lo] + numbers[hi] != target) {
+            if (numbers[lo] + numbers[hi] < target) {
                 lo++;
+            } else {
+                hi--;
             }
         }
 
-        return new int[] {-1, -1};
+        return new int[] {lo + 1, hi + 1};
     }
 }
 // @lc code=end
