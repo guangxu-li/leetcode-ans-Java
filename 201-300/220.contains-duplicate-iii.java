@@ -12,7 +12,7 @@ class Solution {
     private long getID(long x, long w) {
         
         // in java, -4/5 = 0, but we need it to be -1
-        return x < 0 ? x / w - 1 : x / w;
+        return x < 0 ? (x + 1) / w - 1 : x / w;
     }
 
     public boolean containsNearbyAlmostDuplicate(int[] nums, int k, int t) {
