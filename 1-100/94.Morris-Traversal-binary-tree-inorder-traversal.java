@@ -34,14 +34,18 @@ class Solution {
                 node = node.right;
             } else {
                 TreeNode rightMost = node.left;
-                while (rightMost.right != null) {
+                while (rightMost.right != null && rightMost.right != node) {
                     rightMost = rightMost.right;
                 }
-                rightMost.right = node;
 
-                TreeNode nodeLeft = node.left;
-                node.left = null;
-                node = nodeLeft;
+                if (rightMost.right == null) {
+                    rightMost.right = node;
+                    node = node.left;
+                } else {
+                    rightMost.right = null;
+                    vals.add(node.val);
+                    node = node.right;
+                }
             }
         }
 
