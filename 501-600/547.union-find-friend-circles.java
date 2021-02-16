@@ -7,38 +7,38 @@
 // @lc code=start
 class Solution {
     private int[] parent;
-    private int count;
+    private int cnt;
 
     private int find(int i) {
-        return parent[i] == i ? i : find(parent[i]);
+        return i == parent[i] ? i : find(parent[i]);
     }
 
     private void union(int i, int j) {
-        int x = find(i);
-        int y = find(j);
+        i = find(i);
+        j = find(j);
 
-        if (x != y) {
-            parent[x] = y;
-            count--;
+        if (i != j) {
+            parent[i] = j;
+            cnt--;
         }
     }
 
     public int findCircleNum(int[][] M) {
-        this.parent = new int[M.length];
-        this.count = M.length;
-        for (int i = 0; i < parent.length; i++) {
+        parent = new int[M.length];
+        for (int i = 0; i < M.length; i++) {
             parent[i] = i;
         }
+        this.cnt = M.length;
 
         for (int i = 0; i < M.length; i++) {
-            for (int j = 0; j < M[0].length; j++) {
-                if (i != j && M[i][j] == 1) {
+            for (int j = 0; j < M.length; j++) {
+                if (M[i][j] == 1) {
                     union(i, j);
                 }
             }
         }
 
-        return count;
+        return cnt;
     }
 }
 // @lc code=end
