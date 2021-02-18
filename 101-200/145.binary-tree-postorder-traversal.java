@@ -38,14 +38,14 @@ class Solution {
                 root = root.left;
             }
 
-            while (root == null) {
-                root = nodes.pop();
+            root = nodes.pop();
+            if (root == null) {
+                continue;
             }
 
             if (!nodes.isEmpty() && root.right == nodes.peek()) {
                 nodes.pop();
                 nodes.push(root);
-
                 root = root.right;
             } else {
                 values.add(root.val);
