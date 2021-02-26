@@ -10,33 +10,25 @@ import java.util.Deque;
 // @lc code=start
 class Solution {
     public int[] maxSlidingWindow(int[] nums, int k) {
-        if (nums.length == 0 || k == 0) {
-            return new int[0];
-        }
-
         Deque<Integer> indices = new ArrayDeque<>();
-        int max = Integer.MIN_VALUE;
         int[] maxNums = new int[nums.length - k + 1];
+        int idx = 0;
 
         for (int i = 0; i < nums.length; i++) {
-            if (!indices.isEmpty() && indices.peekFirst() == i - k) {
-                indices.pollFirst();
-            }
-
-            while (!indices.isEmpty() && nums[indices.peekLast()] < nums[i]) {
+            if (!indices.isEmpty() && indices.peekLast() == i - k) {
                 indices.pollLast();
             }
 
-            indices.add(i);
+            while (!indices.isEmpty() && nums[indices.peek()] < nums[i]) {
+                indices.pop();
+            }
 
-            if (i < k) {
-                max = Math.max(max, nums[i]);
-            } else {
-                maxNums[i - k + 1] = nums[indices.peekFirst()];
+            indices.push(i);
+            if (i >= k - 1) {
+                maxNums[idx++] = nums[indices.peekLast()];
             }
         }
 
-        maxNums[0] = max;
         return maxNums;
     }
 }
