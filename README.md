@@ -11,3 +11,5 @@ For solution in other program language, please refer to:
 [LeetCode in Go](https://github.com/guangxu-li/leetcode-in-go)  
 
 [LeetCode in Python](https://github.com/guangxu-li/leetcode-in-python)
+
+[LeetCode in JavaScript](https://github.com/guangxu-li/leetcode-in-javascript)
