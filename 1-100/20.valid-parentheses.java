@@ -1,6 +1,7 @@
+import java.util.ArrayDeque;
+import java.util.Deque;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Deque;
 
 /*
  * @lc app=leetcode id=20 lang=java
@@ -10,32 +11,29 @@ import java.util.Deque;
 
 // @lc code=start
 class Solution {
-    private Map<Character, Character> map;
+    private static final Map<Character, Character> pairs = new HashMap<>();
 
     public Solution() {
-        map = new HashMap<>();
-
-        map.put(')', '(');
-        map.put(']', '[');
-        map.put('}', '{');
+        pairs.put(')', '(');
+        pairs.put(']', '[');
+        pairs.put('}', '{');
     }
 
     public boolean isValid(String s) {
-        Deque<Character> stack = new ArrayDeque<>();
+        Deque<Character> waitToPair = new ArrayDeque<>();
 
-        char[] charArray = s.toCharArray();
-
-        for (int i = 0; i < charArray.length; i++) {
-            if (map.containsKey(charArray[i])) {
-                if (stack.isEmpty() || stack.pop() != map.get(charArray[i])) {
+        for (char c : s.toCharArray()) {
+            if (!pairs.containsKey(c)) {
+                waitToPair.push(c);
+            } else {
+                if (waitToPair.isEmpty() || waitToPair.pop() != pairs.get(c)) {
                     return false;
                 }
-            } else {
-                stack.push(charArray[i]);
             }
         }
 
-        return stack.isEmpty() ? true : false;
+        return waitToPair.isEmpty();
     }
 }
 // @lc code=end
+

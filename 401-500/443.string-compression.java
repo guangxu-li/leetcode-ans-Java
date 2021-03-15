@@ -7,28 +7,22 @@
 // @lc code=start
 class Solution {
     public int compress(char[] chars) {
-        int lo = 0;
-        int hi = 0;
-        int anchor = 0;
-
-        while (hi < chars.length) {
-            if (hi == chars.length - 1 || chars[anchor] != chars[hi + 1]) {
-                chars[lo++] = chars[anchor];
-
-                // count = read - anchor  + 1 > 1
-                if (hi > anchor) {
-                    for (char c : Integer.toString(hi - anchor).toCharArray()) {
-                        chars[lo++] = c;
+        int idx = 0;
+        for (int i = 0, anchor = 0; i <= chars.length; i++) {
+            if (i == chars.length || chars[i] != chars[anchor]) {
+                int len = i - anchor;
+                chars[idx++] = chars[anchor];
+                if (len > 1) {
+                    String cnt = String.valueOf(len);
+                    for (int j = 0; j < cnt.length(); j++) {
+                        chars[idx++] = cnt.charAt(j);
                     }
                 }
-
-                anchor = hi + 1;
+                anchor = i;
             }
-
-            hi++;
         }
 
-        return lo;
+        return idx;
     }
 }
 // @lc code=end

@@ -18,23 +18,19 @@
  */
 public class Solution {
     public boolean hasCycle(ListNode head) {
-        if (head == null || head.next == null) {
-            return false;
-        }
+        ListNode hare = head;
+        ListNode tortoise = head;
 
-        ListNode slow = head;
-        ListNode fast = head.next;
+        while (hare != null && hare.next != null) {
+            hare = hare.next.next;
+            tortoise = tortoise.next;
 
-        while (slow != fast) {
-            if (fast == null || fast.next == null) {
-                return false;
+            if (hare == tortoise) {
+                return true;
             }
-
-            slow = slow.next;
-            fast = fast.next.next;
         }
 
-        return true;
+        return false;
     }
 }
 // @lc code=end

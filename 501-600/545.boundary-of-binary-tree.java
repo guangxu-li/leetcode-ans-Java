@@ -1,5 +1,4 @@
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 /*
@@ -25,52 +24,56 @@ import java.util.List;
  * }
  */
 class Solution {
-    private List<Integer> left = new ArrayList<>();
-    private List<Integer> right = new ArrayList<>();
-    private List<Integer> leaf = new ArrayList<>();
+    private List<Integer> boundary = new ArrayList<>();
 
-    private void dfs(TreeNode node, boolean normal, boolean isLeft) {
+    private void rightBoundary(TreeNode node) {
+        if (node == null || (node.left == null && node.right == null)) {
+            return;
+        }
+
+        if (node.right != null) {
+            rightBoundary(node.right);
+        } else {
+            rightBoundary(node.left);
+        }
+        boundary.add(node.val);
+    }
+
+    private void leftBoundary(TreeNode node) {
+        if (node == null || (node.left == null && node.right == null)) {
+            return;
+        }
+
+        boundary.add(node.val);
+        if (node.left != null) {
+            leftBoundary(node.left);
+        } else {
+            leftBoundary(node.right);
+        }
+    }
+
+    private void leaves(TreeNode node) {
         if (node == null) {
             return;
         }
 
         if (node.left == null && node.right == null) {
-            leaf.add(node.val);
-
+            boundary.add(node.val);
             return;
         }
 
-        if (normal) {
-            dfs(node.left, normal, isLeft);
-            dfs(node.right, normal, isLeft);
-        } else if (isLeft) {
-            left.add(node.val);
-
-            dfs(node.left, false, isLeft);
-            dfs(node.right, node.left != null, isLeft);
-        } else {
-            right.add(node.val);
-
-            dfs(node.left, node.right != null, isLeft);
-            dfs(node.right, false, isLeft);
-        }
+        leaves(node.left);
+        leaves(node.right);
     }
 
     public List<Integer> boundaryOfBinaryTree(TreeNode root) {
-        List<Integer> boundary = new ArrayList<>();
         boundary.add(root.val);
-
-        dfs(root.left, false, true);
-        dfs(root.right, false, false);
-
-        Collections.reverse(right);
-
-        boundary.addAll(left);
-        boundary.addAll(leaf);
-        boundary.addAll(right);
+        leftBoundary(root.left);
+        leaves(root.left);
+        leaves(root.right);
+        rightBoundary(root.right);
 
         return boundary;
     }
 }
 // @lc code=end
-

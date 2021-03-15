@@ -7,38 +7,30 @@
 // @lc code=start
 class Solution {
     public String longestPalindrome(String s) {
-        char[] sChars = s.toCharArray();
+        char[] cs = s.toCharArray();
+        boolean[][] dp = new boolean[cs.length][cs.length];
 
-        int m = s.length();
-
-        // * dp[i][len + 1] means substring starting from i with length of len;
-        boolean[][] dp = new boolean[m][2];
-        int currCol = 0;
-
-        int maxLen = 0;
-        int ans = 0; // * record start index of substring
-
-        for (int len = 0; len < m; len++) {
-            for (int start = 0; start + len < m; start++) {
-                int end = start + len;
+        int lo = 0;
+        int hi = -1;
+        for (int len = 0; len < cs.length; len++) {
+            for (int start = 0; start + len < cs.length; start++) {
                 if (len == 0) {
-                    dp[start][currCol] = true;
+                    dp[len][start] = true;
                 } else if (len == 1) {
-                    dp[start][currCol] = (sChars[start] == sChars[end]);
+                    dp[len][start] = cs[start] == cs[start + 1];
                 } else {
-                    dp[start][currCol] = (sChars[start] == sChars[end] && dp[start + 1][currCol]);
+                    dp[len][start] = cs[start] == cs[start + len] && dp[len - 2][start + 1];
                 }
 
-                if (dp[start][currCol] && len + 1 > maxLen) {
-                    ans = start;
-                    maxLen = len + 1;
+                if (dp[len][start] && len > hi - lo) {
+                    lo = start;
+                    hi = start + len;
                 }
             }
-
-            currCol = 1 - currCol;
         }
 
-        return maxLen == 0 ? "" : s.substring(ans, ans + maxLen);
+        return s.substring(lo, hi + 1);
     }
 }
 // @lc code=end
+

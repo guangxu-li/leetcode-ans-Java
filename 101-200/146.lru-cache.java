@@ -8,103 +8,81 @@ import java.util.Map;
  */
 
 // @lc code=start
+class Node {
+    public int key;
+    public int val;
+    public Node prev;
+    public Node next;
+
+    public Node(int key, int val) {
+        this.key = key;
+        this.val = val;
+        this.prev = null;
+        this.next = null;
+    }
+}
+
+
 class LRUCache {
-    class ListNode {
-        private int key;
-        private int value;
-
-        private ListNode next;
-        private ListNode prev;
-
-        public ListNode() {
-        }
-
-        public ListNode(int key, int value) {
-            this.key = key;
-            this.value = value;
-        }
-    }
-
-    class LinkedList {
-        private ListNode head;
-        private ListNode tail;
-
-        public LinkedList() {
-            this.head = new ListNode();
-            this.tail = new ListNode();
-
-            head.next = tail;
-            tail.prev = head;
-        }
-
-        public void add(ListNode node) {
-            node.prev = head;
-            node.next = head.next;
-
-            head.next.prev = node;
-            head.next = node;
-        }
-
-        public void remove(ListNode node) {
-            node.prev.next = node.next;
-            node.next.prev = node.prev;
-        }
-
-        public ListNode removeLast() {
-            ListNode node = tail.prev;
-            remove(node);
-
-            return node;
-        }
-
-        public void moveToHead(ListNode node) {
-            remove(node);
-            add(node);
-        }
-    }
-
-    private LinkedList list;
-    private Map<Integer, ListNode> cache = new HashMap<>();
-    private int size = 0;
-
+    private Node head;
+    private Node tail;
+    private Map<Integer, Node> nodes;
     private int capacity;
 
-    private void removeEldestElement() {
-        if (size > capacity) {
-            size--;
-            cache.remove(list.removeLast().key);
-        }
+    public LRUCache(int capacity) {
+        this.head = new Node(-1, -1);
+        this.tail = new Node(-1, -1);
+        head.next = tail;
+        tail.prev = head;
+
+        this.nodes = new HashMap<>();
+        this.capacity = capacity;
     }
 
-    public LRUCache(int capacity) {
-        this.capacity = capacity;
+    private void addToTail(Node node) {
+        Node p = tail.prev;
+        p.next = node;
+        node.prev = p;
+        node.next = tail;
+        tail.prev = node;
+    }
 
-        list = new LinkedList();
+    private void moveToTail(Node node) {
+        System.out.println(node.val);
+        node.prev.next = node.next;
+        node.next.prev = node.prev;
+
+        addToTail(node);
     }
 
     public int get(int key) {
-        ListNode node = cache.get(key);
-        if (node == null) {
-            return -1;
+        if (nodes.containsKey(key)) {
+            moveToTail(nodes.get(key));
+            return nodes.get(key).val;
         }
-        list.moveToHead(node);
 
-        return node.value;
+        return -1;
     }
 
     public void put(int key, int value) {
-        ListNode node = cache.get(key);
-
-        if (node == null) {
-            node = new ListNode(key, value);
-            list.add(node);
-            cache.put(key, node);
-
-            size++;
-            removeEldestElement();
+        if (nodes.containsKey(key)) {
+            nodes.get(key).val = value;
+            moveToTail(nodes.get(key));
         } else {
-            node.value = value;
-            list.moveToHead(node);
+            if (capacity == nodes.size()) {
+                Node evicted = head.next;
+                Node newRoot = evicted.next;
+
+                evicted.prev = null;
+                evicted.next = null;
+                nodes.remove(evicted.key);
+
+                head.next = newRoot;
+                newRoot.prev = head;
+            }
+
+            addToTail(new Node(key, value));
+            nodes.put(key, tail.prev);
         }
     }
 }

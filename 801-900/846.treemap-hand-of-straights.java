@@ -8,15 +8,15 @@ import java.util.TreeMap;
 
 // @lc code=start
 class Solution {
-    private void updateMap(TreeMap<Integer, Integer> cards, int key, int diff) {
-        cards.put(key, cards.getOrDefault(key, 0) + diff);
-        if (cards.get(key) <= 0) {
-            cards.remove(key);
+    private void updateMap(TreeMap<Integer, Integer> map, int key, int diff) {
+        map.put(key, map.getOrDefault(key, 0) + diff);
+        if (map.get(key) == 0) {
+            map.remove(key);
         }
     }
 
     public boolean isNStraightHand(int[] hand, int W) {
-        if (hand.length % W != 0) {
+        if (hand.length % W > 0) {
             return false;
         }
 
@@ -26,15 +26,16 @@ class Solution {
         }
 
         while (!cards.isEmpty()) {
-            int start = cards.firstKey();
-            updateMap(cards, start, -1);
+            int min = cards.firstKey();
+            updateMap(cards, min, -1);
 
-            for (int i = start + 1; i < start + W; i++) {
-                if (!cards.containsKey(i)) {
+            for (int i = 0, prev = min; i < W - 1; i++) {
+                Integer next = cards.higherKey(prev);
+                if (next == null || prev + 1 < next) {
                     return false;
                 }
-
-                updateMap(cards, i, -1);
+                updateMap(cards, next, -1);
+                prev = next;
             }
         }
 

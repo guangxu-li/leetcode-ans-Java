@@ -13,14 +13,13 @@ import java.util.Queue;
 
 // @lc code=start
 class Solution {
+    Map<String, Queue<String>> edges = new HashMap<>();
     LinkedList<String> itinerary = new LinkedList<>();
-    Map<String, Queue<String>> itinerarys = new HashMap<>();
 
-    private void dfs(String cur) {
-        if (itinerarys.containsKey(cur)) {
-            while (!itinerarys.get(cur).isEmpty()) {
-                dfs(itinerarys.get(cur).poll());
-            }
+    private void reconstruct(String cur) {
+        Queue<String> adjs = edges.getOrDefault(cur, new PriorityQueue<>());
+        while (!adjs.isEmpty()) {
+            reconstruct(adjs.poll());
         }
 
         itinerary.addFirst(cur);
@@ -28,13 +27,10 @@ class Solution {
 
     public List<String> findItinerary(List<List<String>> tickets) {
         for (List<String> ticket : tickets) {
-            if (!itinerarys.containsKey(ticket.get(0))) {
-                itinerarys.put(ticket.get(0), new PriorityQueue<>());
-            }
-            itinerarys.get(ticket.get(0)).add(ticket.get(1));
+            edges.computeIfAbsent(ticket.get(0), k -> new PriorityQueue<>()).add(ticket.get(1));
         }
 
-        dfs("JFK");
+        reconstruct("JFK");
 
         return itinerary;
     }

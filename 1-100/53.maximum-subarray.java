@@ -7,11 +7,11 @@
 // @lc code=start
 class Solution {
     public int maxSubArray(int[] nums) {
-        int localMax = nums[0];
-        int globalMax = nums[0];
+        int localMax = 0;
+        int globalMax = Integer.MIN_VALUE;
 
-        for (int i = 1; i < nums.length; i++) {
-            localMax = Math.max(nums[i], localMax + nums[i]); /* [-2, 1] */
+        for (int num : nums) {
+            localMax = Math.max(0, localMax) + num;
             globalMax = Math.max(localMax, globalMax);
         }
 

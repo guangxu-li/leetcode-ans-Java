@@ -28,54 +28,35 @@ import java.util.List;
  * }
  */
 public class NestedIterator implements Iterator<Integer> {
-    private Deque<Counter> indices = new ArrayDeque<>();
-    private Deque<List<NestedInteger>> lists = new ArrayDeque<>();
-
-    private void flattenNext() {
-        while (!lists.isEmpty()) {
-            if (indices.peek().i == lists.peek().size()) {
-                indices.pop();
-                lists.pop();
-
-                continue;
-            }
-
-            if (lists.peek().get(indices.peek().i).isInteger()) {
-                break;
-            }
-
-            lists.push(lists.peek().get(indices.peek().i++).getList());
-            indices.push(new Counter());
-        }
-    }
+    private Deque<NestedInteger> nested;
 
     public NestedIterator(List<NestedInteger> nestedList) {
-        indices.push(new Counter());
-        lists.push(nestedList);
+        this.nested = new ArrayDeque<>();
+        flattenList(nestedList);
+    }
+    
+    private void flattenList(List<NestedInteger> list) {
+        for (int i = list.size() - 1; i >= 0; i--) {
+            nested.push(list.get(i));
+        }
     }
 
     @Override
     public Integer next() {
-        return lists.peek().get(indices.peek().i++).getInteger();
+        return hasNext() ? nested.pop().getInteger() : null;
     }
 
     @Override
     public boolean hasNext() {
-        flattenNext();
+        while (!nested.isEmpty()) {
+            if (nested.peek().isInteger()) {
+                return true;
+            }
 
-        return !lists.isEmpty();
-    }
-}
+            flattenList(nested.pop().getList());
+        }
 
-
-class Counter {
-    public int i = 0;
-
-    public Counter() {
-    }
-
-    public Counter(int i) {
-        this.i = i;
+        return false;
     }
 }
 
