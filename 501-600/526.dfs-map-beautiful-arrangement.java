@@ -1,7 +1,7 @@
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
-import java.util.TreeSet;
 
 /*
  * @lc app=leetcode id=526 lang=java
@@ -43,7 +43,7 @@ class Solution {
     }
 
     public int countArrangement(int n) {
-        return arrange(new TreeSet(), n);
+        return arrange(new HashSet<>(), n);
     }
 }
 // @lc code=end
